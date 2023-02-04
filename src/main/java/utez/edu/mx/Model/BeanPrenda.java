@@ -14,6 +14,18 @@ public class BeanPrenda {
     public BeanPrenda() {
     }
 
+    public BeanPrenda(int id, String nombre, String marca, String talla, String color, double descuento, double costo, int stock, boolean status) {
+        this.id = id;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.talla = talla;
+        this.color = color;
+        this.descuento = descuento;
+        this.costo = costo;
+        this.stock = stock;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
