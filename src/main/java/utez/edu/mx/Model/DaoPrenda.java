@@ -84,7 +84,7 @@ public class DaoPrenda {
         boolean flag = false;
         try{
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("{call sp_create(?,?,?,?,?,?,?)}");
+            cstm = con.prepareCall("INSERT INTO ropa (nombre,marca,talla, color,descuento,costo,stock) VALUES(?,?,?,?,?,?,?)");
             cstm.setString(1, prenda.getNombre());
             cstm.setString(2,prenda.getMarca());
             cstm.setString(3,prenda.getTalla());
@@ -92,8 +92,7 @@ public class DaoPrenda {
             cstm.setDouble(5, prenda.getDescuento());
             cstm.setDouble(6,prenda.getCosto());
             cstm.setInt(7, prenda.getStock());
-            cstm.execute();
-            flag = true;
+            flag = cstm.executeUpdate()==1;
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
         } finally {

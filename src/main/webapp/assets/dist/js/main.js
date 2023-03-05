@@ -73,6 +73,35 @@ const deleteP = (id) => {
 
 };
 
+const registrar=()=>{
+    console.log("me has presionado")
+    const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+    var data=new FormData()
+    data.append("nombre",document.getElementById("nombre").value);
+    data.append("marca",document.getElementById("marca").value);
+    data.append("talla",document.getElementById("talla").value);
+    data.append("color",document.getElementById("color").value);
+    data.append("descuento",document.getElementById("descuento").value);
+    data.append("costo",document.getElementById("costo").value);
+    data.append("stock",document.getElementById("stock").value);
+    data.append("action","create");
+    $.ajax({
+        type:"POST",
+        url: contextPath + "/createPrendas",
+        data:data,
+        processData:false,
+        contentType:false
+    }).done(function (res){
+        console.log(res);
+        $(`#formModalR`).hide();
+        fill(res.listPrendas);
+        location.reload();
+    });
+
+
+
+}
+
 
 
 

@@ -40,7 +40,6 @@ public class ServletPrendas extends HttpServlet{
                 beanPrenda.setStock(Integer.parseInt(request.getParameter("stock")));
                 boolean flag=daoPrenda.create(beanPrenda);
                 if(flag){
-
                     map.put("message","Se registro correctamente");
                 }else{
                     map.put("message", "No se registro correctamente");

@@ -111,7 +111,7 @@
                     <input type="text" id="color" name="color" style="margin-bottom:10px;">
                     <br>
                     <label>Descuento</label>
-                    <input type="text" id="desc" name="desc" style="margin-bottom:10px;">
+                    <input type="number" id="descuento" name="descuento" style="margin-bottom:10px;">
                     <br>
                     <label>Costo</label>
                     <input type="number" id="costo" name="costo" style="margin-bottom:10px;">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" onclick="registrar()">Guardar</button>
                 </div>
             </div>
         </div>
