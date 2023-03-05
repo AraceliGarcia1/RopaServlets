@@ -10,7 +10,7 @@ public class ConnectionMySQL {
         String useSSL = "false";
         String timezone = "UTC";
         String user = "root";
-        String password = "";
+        String password = "root";
         String url = String.format("jdbc:mysql://%s:%s/%s?useSSL=%s&serverTimezone=%s", host, port, database, useSSL, timezone);
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 

@@ -52,7 +52,7 @@ public class DaoPrenda {
         try {
 
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("SELECT * FROM cartas  WHERE id = ?");
+            cstm = con.prepareCall("SELECT * FROM ropa  WHERE id = ?");
             cstm.setInt(1, id);
             rs = cstm.executeQuery();
 

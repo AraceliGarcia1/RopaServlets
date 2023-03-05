@@ -11,7 +11,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+@MultipartConfig
 @WebServlet(name = "ServletPrendas",  urlPatterns ={"/readPrendas","/createPrendas", "/updatePrendas","/deletePrendas"})
 public class ServletPrendas extends HttpServlet{
     private Map map=new HashMap();
