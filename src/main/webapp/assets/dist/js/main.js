@@ -15,8 +15,8 @@ const fill = (listPrendas) => {
           <td>${listPrendas[i].stock}</td>
           <td>${listPrendas[i].status ? "Activo" : "Inactivo"}</td>
           <td>
-           <button class="btn btn-warning" style="margin-right:10px ;" data-bs-toggle="modal" data-bs-target="#formModal">Modificar</button>
-           <button class="btn btn-danger"  style="margin-left: 10px;" type="submit">Eliminar</button>
+           <button class="btn btn-warning delete-button" style="margin-right:10px ;" data-bs-toggle="modal" data-bs-target="#formModal" id="modificar">Modificar</button>
+           <button class="btn btn-danger edit-button"  style="margin-left: 10px;"  onclick="deleteP(${listPrendas[i].id})" id="eliminar">Eliminar</button>
           </td>
         </tr>
       `;
@@ -45,6 +45,33 @@ const findAll = () => {
 };
 
 findAll();
+
+const deleteP = (id) => {
+    console.log(id)
+    const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+
+    $.ajax({
+            type: 'POST',
+            url: contextPath + '/deletePrendas',
+            data: {
+                id: id,
+                'action':'delete',
+                status: false
+            }
+        }).done(function(res){
+            console.log('cambia el estado')
+            const index = res.listPrendas.findIndex(prenda => prenda.id == id);
+            if (index !=-1) {
+            res.listPrendas[index].status = false; // actualizar el estado a false
+                fill(res.listPrendas);
+                 $(`#prenda-table > tbody > tr:eq(${index}) .delete-button`).hide();
+                $(`#prenda-table > tbody > tr:eq(${index}) .edit-button`).hide();
+                 // actualizar la tabla
+        }
+        });
+
+
+};
 
 
 

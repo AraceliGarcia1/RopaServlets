@@ -67,8 +67,8 @@ public class ServletPrendas extends HttpServlet{
 
             case "delete":
                 if(new DaoPrenda().delete(Integer.parseInt(request.getParameter("id")))){
-                    request.setAttribute("mesage","Se ha eliminado correctamente");
-
+                    map.put("mesage","Se ha eliminado correctamente");
+                    write(response, map);
                 }else{
                     CONSOLE.error("No se ha eliminado");
                 }
@@ -82,6 +82,7 @@ public class ServletPrendas extends HttpServlet{
 
         }
         response.sendRedirect(request.getContextPath()+"/readPrendas");
+
 
 
     }
