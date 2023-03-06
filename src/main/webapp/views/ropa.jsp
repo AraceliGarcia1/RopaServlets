@@ -33,6 +33,7 @@
         <table class="table table-striped table-hover" id="prenda-table">
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Talla</th>
@@ -60,30 +61,31 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="text" id="id1" name="id1" style="margin-bottom:10px;">
                     <label>Nombre</label>
-                    <input type="text" id="nombre1" name="nombre" style="margin-bottom:10px;">
+                    <input type="text" id="nombre1" name="nombre1" style="margin-bottom:10px;">
                     <br>
                     <label>Marca</label>
-                    <input type="text" id="marca1" name="marca" style="margin-bottom:10px;">
+                    <input type="text" id="marca1" name="marca1" style="margin-bottom:10px;">
                     <br>
                     <label>Talla</label>
-                    <input type="text" id="talla1" name="talla" style="margin-bottom:10px;">
+                    <input type="text" id="talla1" name="talla1" style="margin-bottom:10px;">
                     <br>
                     <label>Color</label>
-                    <input type="text" id="color1" name="color" style="margin-bottom:10px;">
+                    <input type="text" id="color1" name="color1" style="margin-bottom:10px;">
                     <br>
                     <label>Descuento</label>
-                    <input type="text" id="desc1" name="desc" style="margin-bottom:10px;">
+                    <input type="text" id="desc1" name="desc1" style="margin-bottom:10px;">
                     <br>
                     <label>Costo</label>
-                    <input type="number" id="costo1" name="costo" style="margin-bottom:10px;">
+                    <input type="number" id="costo1" name="costo1" style="margin-bottom:10px;">
                     <br>
                     <label>Stock</label>
-                    <input type="number" id="stock1" name="stock" style="margin-bottom:10px;">
+                    <input type="number" id="stock1" name="stock1" style="margin-bottom:10px;">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="updateRegistro">Guardar</button>
                 </div>
             </div>
         </div>

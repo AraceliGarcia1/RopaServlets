@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 @MultipartConfig
-@WebServlet(name = "ServletPrendas",  urlPatterns ={"/readPrendas","/createPrendas", "/updatePrendas","/deletePrendas"})
+@WebServlet(name = "ServletPrendas",  urlPatterns ={"/readPrendas","/createPrendas", "/updatePrendas","/deletePrendas","/findByIdP"})
 public class ServletPrendas extends HttpServlet{
     private Map map=new HashMap();
     final Logger CONSOLE= LoggerFactory.getLogger(ServletPrendas.class);
@@ -30,6 +30,12 @@ public class ServletPrendas extends HttpServlet{
         DaoPrenda daoPrenda=new DaoPrenda();
 
         switch (action){
+            case "findById":
+                int id=Integer.parseInt(request.getParameter("id"));
+                beanPrenda=daoPrenda.findById(id);
+                map.put("PrendafindById",beanPrenda);
+                write(response,map);
+                break;
             case "create":
                 beanPrenda.setNombre(request.getParameter("nombre"));
                 beanPrenda.setMarca(request.getParameter("marca"));
@@ -47,15 +53,17 @@ public class ServletPrendas extends HttpServlet{
                 }
                 break;
             case "update":
-                beanPrenda.setId(Integer.parseInt(request.getParameter("id")));
-                beanPrenda.setNombre(request.getParameter("nombre"));
-                beanPrenda.setMarca(request.getParameter("marca"));
-                beanPrenda.setColor(request.getParameter("color"));
-                beanPrenda.setTalla(request.getParameter("talla"));
-                beanPrenda.setDescuento(Double.parseDouble(request.getParameter("descuento")));
-                beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo")));
-                beanPrenda.setStock(Integer.parseInt(request.getParameter("stock")));
-                boolean flag1=daoPrenda.update(beanPrenda);
+                boolean flag1=false;
+                beanPrenda.setId(Integer.parseInt(request.getParameter("id1")));
+                beanPrenda.setNombre(request.getParameter("nombre1"));
+                beanPrenda.setMarca(request.getParameter("marca1"));
+                beanPrenda.setColor(request.getParameter("color1"));
+                beanPrenda.setTalla(request.getParameter("talla1"));
+                beanPrenda.setDescuento(Double.parseDouble(request.getParameter("descuento1")));
+                beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo1")));
+                beanPrenda.setStock(Integer.parseInt(request.getParameter("stock1")));
+                daoPrenda.update(beanPrenda);
+                request.getRequestDispatcher("ServletPrendas?action=findAll").forward(request,response);
                 if(flag1){
                     map.put("message","Se actualizo correctamente");
 
