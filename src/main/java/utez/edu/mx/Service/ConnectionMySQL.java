@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConnectionMySQL {
     public static Connection getConnection() throws SQLException {
         String host = "localhost";
-        String port = "3306";
+        String port = "3307";
         String database = "ropa";
         String useSSL = "false";
         String timezone = "UTC";
@@ -17,13 +17,13 @@ public class ConnectionMySQL {
         return DriverManager.getConnection(url, user, password);
     }
 
-    public static void closeConnections(Connection con, CallableStatement cstm, ResultSet rs) {
+    public static void closeConnections(Connection con,PreparedStatement pstm, ResultSet rs) {
         try {
             if (rs != null) {
                 rs.close();
             }
-            if (cstm != null) {
-                cstm.close();
+            if (pstm != null) {
+                pstm.close();
             }
             if (con != null) {
                 con.close();
@@ -33,10 +33,11 @@ public class ConnectionMySQL {
 
     }
 
-    public static void closeConnections(Connection con, CallableStatement cstm) {
+    public static void closeConnections(Connection con,PreparedStatement pstm) {
         try {
-            if (cstm != null) {
-                cstm.close();
+
+            if (pstm != null) {
+                pstm.close();
             }
             if (con != null) {
                 con.close();

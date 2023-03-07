@@ -85,7 +85,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="updateRegistro">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="updateRegistro" onclick="updateS()">Guardar</button>
                 </div>
             </div>
         </div>

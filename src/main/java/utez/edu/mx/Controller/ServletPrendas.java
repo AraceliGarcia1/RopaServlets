@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 @MultipartConfig
 @WebServlet(name = "ServletPrendas",  urlPatterns ={"/readPrendas","/createPrendas", "/updatePrendas","/deletePrendas","/findByIdP"})
-public class ServletPrendas extends HttpServlet{
+public class ServletPrendas extends HttpServlet {
     private Map map=new HashMap();
     final Logger CONSOLE= LoggerFactory.getLogger(ServletPrendas.class);
     @Override
@@ -59,11 +59,10 @@ public class ServletPrendas extends HttpServlet{
                 beanPrenda.setMarca(request.getParameter("marca1"));
                 beanPrenda.setColor(request.getParameter("color1"));
                 beanPrenda.setTalla(request.getParameter("talla1"));
-                beanPrenda.setDescuento(Double.parseDouble(request.getParameter("descuento1")));
+                beanPrenda.setDescuento(Double.parseDouble(request.getParameter("desc1")));
                 beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo1")));
                 beanPrenda.setStock(Integer.parseInt(request.getParameter("stock1")));
                 daoPrenda.update(beanPrenda);
-                request.getRequestDispatcher("ServletPrendas?action=findAll").forward(request,response);
                 if(flag1){
                     map.put("message","Se actualizo correctamente");
 

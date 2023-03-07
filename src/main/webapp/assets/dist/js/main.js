@@ -104,7 +104,7 @@ const registrar=()=>{
 const updateP=(id)=>{
     console.log("idPrenda")
     const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-   // var data=new FormData()
+
     console.log(id)
     $.ajax({
         type:'GET',
@@ -112,8 +112,10 @@ const updateP=(id)=>{
         data:{id:id},
         'action':'findById'
     }).done(function (response){
-        console.log(response)
-        const prenda =response.PrendafindById;
+        let prenda = response.listPrendas;
+        prenda = prenda.filter(p => {
+            return p.id == id ? true: false;
+        })[0];
         console.log('esta es la prenda',prenda)
         if (prenda){
         $('#id1').val(prenda.id);
@@ -128,31 +130,41 @@ const updateP=(id)=>{
         }else{
             console.log(`No se encontró ninguna prenda con el ID ${id}.`)
         }
-    })
-    /**
 
 
-    console.log(id)
-    data.append("id1",document.getElementById("id1").value);
-    data.append("nombre1",document.getElementById("nombre1").value);
-    data.append("marca1",document.getElementById("marca1").value);
-    data.append("talla1",document.getElementById("talla1").value);
-    data.append("color1",document.getElementById("color1").value);
-    data.append("descuento1",document.getElementById("descuento1").value);
-    data.append("costo1",document.getElementById("costo1").value);
-    data.append("stock1",document.getElementById("stock1").value);
+
+
+
+    });
+
+};
+
+const updateS=()=>{
+    const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+    console.log("me has presionado")
+    var data=new FormData();
+    console.log(data.append("id",document.getElementById("id1").value));
+    data.append("nombre",document.getElementById("nombre1").value);
+    data.append("marca",document.getElementById("marca1").value);
+    data.append("talla",document.getElementById("talla1").value);
+    data.append("color",document.getElementById("color1").value);
+    data.append("descuento",document.getElementById("desc1").value);
+    data.append("costo",document.getElementById("costo1").value);
+    console.log(data.append("stock",document.getElementById("stock1").value));
     data.append("action","update");
 
-    let updateR = {
-        id1: $('#id1').val(),
-        nombre1: $('#nombre1').val(),
-        marca1: $('#marca1').val(),
-        talla1: $('#talla1').val(),
-        color1: $('#color1').val(),
-        descuento1: $('#desc1').val(),
-        costo1: $('#costo1').val(),
-        stock1: $('#stock1').val(),
-    }
+    /**
+     let updateR = {
+    id: $('#id1').val(),
+    nombre: $('#nombre1').val(),
+    marca: $('#marca1').val(),
+    talla: $('#talla1').val(),
+    color: $('#color1').val(),
+    descuento: $('#desc1').val(),
+    costo: $('#costo1').val(),
+    stock: $('#stock1').val(),
+}
+
     $.ajax({
         type:"POST",
         url: contextPath + "/updatePrendas",
@@ -164,8 +176,11 @@ const updateP=(id)=>{
         console.log(res);
         $(`#formModal`).hide();
         location.reload();
-    });**/
+    });
+
+     */
 };
+
 
 
 

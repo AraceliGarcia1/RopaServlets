@@ -18,8 +18,8 @@ public class DaoPrenda {
         List<BeanPrenda> listPrendas = new ArrayList<>();
         try{
             con= ConnectionMySQL.getConnection() ;
-            cstm= con.prepareCall("SELECT * FROM ropa ");
-            rs= cstm.executeQuery();
+            pstm= con.prepareStatement("SELECT * FROM ropa ");
+            rs= pstm.executeQuery();
             while(rs.next()){
                 BeanPrenda beanPrenda = new BeanPrenda();
 
@@ -40,7 +40,7 @@ public class DaoPrenda {
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
 
         }finally {
-            ConnectionMySQL.closeConnections(con, cstm, rs);
+            ConnectionMySQL.closeConnections(con, pstm, rs);
         }
         return listPrendas;
     }
@@ -51,7 +51,7 @@ public class DaoPrenda {
 
             con = ConnectionMySQL.getConnection();
             pstm= con.prepareStatement("SELECT * FROM ropa WHERE id = ?");
-            cstm.setInt(1, id);
+            pstm.setInt(1, id);
             rs = pstm.executeQuery();
 
             if(rs.next()){
@@ -71,7 +71,7 @@ public class DaoPrenda {
         }catch (SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
         } finally {
-            ConnectionMySQL.closeConnections(con, cstm, rs);
+            ConnectionMySQL.closeConnections(con, pstm, rs);
         }
         return beanPrenda;
     }
@@ -80,19 +80,19 @@ public class DaoPrenda {
         boolean flag = false;
         try{
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("INSERT INTO ropa (nombre,marca,talla, color,descuento,costo,stock) VALUES(?,?,?,?,?,?,?)");
-            cstm.setString(1, prenda.getNombre());
-            cstm.setString(2,prenda.getMarca());
-            cstm.setString(3,prenda.getTalla());
-            cstm.setString(4, prenda.getColor());
-            cstm.setDouble(5, prenda.getDescuento());
-            cstm.setDouble(6,prenda.getCosto());
-            cstm.setInt(7, prenda.getStock());
-            flag = cstm.executeUpdate()==1;
+            pstm= con.prepareStatement("INSERT INTO ropa (nombre,marca,talla, color,descuento,costo,stock) VALUES(?,?,?,?,?,?,?)");
+            pstm.setString(1, prenda.getNombre());
+            pstm.setString(2,prenda.getMarca());
+            pstm.setString(3,prenda.getTalla());
+            pstm.setString(4, prenda.getColor());
+            pstm.setDouble(5, prenda.getDescuento());
+            pstm.setDouble(6,prenda.getCosto());
+            pstm.setInt(7, prenda.getStock());
+            flag = pstm.executeUpdate()==1;
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
         } finally {
-            ConnectionMySQL.closeConnections(con, cstm);
+            ConnectionMySQL.closeConnections(con, pstm);
         }
         return flag;
     }
@@ -117,7 +117,7 @@ public class DaoPrenda {
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
         }finally{
-            ConnectionMySQL.closeConnections(con, cstm);
+            ConnectionMySQL.closeConnections(con, pstm);
         }
         return flag;
     }
@@ -126,13 +126,13 @@ public class DaoPrenda {
         boolean flag = false;
         try{
             con = ConnectionMySQL.getConnection();
-            cstm = con.prepareCall("UPDATE ropa SET status=FALSE WHERE id=?");
-            cstm.setInt(1, id);
-            flag = cstm.executeUpdate()==1;
+            pstm = con.prepareStatement("UPDATE ropa SET status=FALSE WHERE id=?");
+            pstm.setInt(1, id);
+            flag = pstm.executeUpdate()==1;
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
         }finally{
-            ConnectionMySQL.closeConnections(con, cstm);
+            ConnectionMySQL.closeConnections(con, pstm);
         }
         return flag;
     }
