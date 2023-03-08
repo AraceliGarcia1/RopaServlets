@@ -130,11 +130,6 @@ const updateP=(id)=>{
         }else{
             console.log(`No se encontró ninguna prenda con el ID ${id}.`)
         }
-
-
-
-
-
     });
 
 };
@@ -142,43 +137,32 @@ const updateP=(id)=>{
 const updateS=()=>{
     const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
     console.log("me has presionado")
-    var data=new FormData();
-    console.log(data.append("id",document.getElementById("id1").value));
+    var data=new FormData()
+    data.append("id",document.getElementById("id1").value);
     data.append("nombre",document.getElementById("nombre1").value);
     data.append("marca",document.getElementById("marca1").value);
     data.append("talla",document.getElementById("talla1").value);
     data.append("color",document.getElementById("color1").value);
     data.append("descuento",document.getElementById("desc1").value);
     data.append("costo",document.getElementById("costo1").value);
-    console.log(data.append("stock",document.getElementById("stock1").value));
+    data.append("stock",document.getElementById("stock1").value);
     data.append("action","update");
-
-    /**
-     let updateR = {
-    id: $('#id1').val(),
-    nombre: $('#nombre1').val(),
-    marca: $('#marca1').val(),
-    talla: $('#talla1').val(),
-    color: $('#color1').val(),
-    descuento: $('#desc1').val(),
-    costo: $('#costo1').val(),
-    stock: $('#stock1').val(),
-}
 
     $.ajax({
         type:"POST",
         url: contextPath + "/updatePrendas",
         data:data,
+        'action':'update',
         processData:false,
         contentType:false
     }).done(function (res){
-        fill(res.listPrendas);
-        console.log(res);
+
         $(`#formModal`).hide();
+        fill(res.listPrendas);
         location.reload();
     });
 
-     */
+
 };
 
 

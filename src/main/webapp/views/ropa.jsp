@@ -61,7 +61,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="id1" name="id1" style="margin-bottom:10px;">
+                    <input type="hidden" id="id1" name="id1" style="margin-bottom:10px">
+                    <br>
                     <label>Nombre</label>
                     <input type="text" id="nombre1" name="nombre1" style="margin-bottom:10px;">
                     <br>

@@ -53,24 +53,20 @@ public class ServletPrendas extends HttpServlet {
                 }
                 break;
             case "update":
-                boolean flag1=false;
-                beanPrenda.setId(Integer.parseInt(request.getParameter("id1")));
-                beanPrenda.setNombre(request.getParameter("nombre1"));
-                beanPrenda.setMarca(request.getParameter("marca1"));
-                beanPrenda.setColor(request.getParameter("color1"));
-                beanPrenda.setTalla(request.getParameter("talla1"));
-                beanPrenda.setDescuento(Double.parseDouble(request.getParameter("desc1")));
-                beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo1")));
-                beanPrenda.setStock(Integer.parseInt(request.getParameter("stock1")));
-                daoPrenda.update(beanPrenda);
-                if(flag1){
-                    map.put("message","Se actualizo correctamente");
-
-                }else{
-                    map.put("message", "No se actualizo correctamente");
+                try {
+                    beanPrenda.setId(Integer.parseInt(request.getParameter("id1")));
+                    beanPrenda.setNombre(request.getParameter("nombre1"));
+                    beanPrenda.setMarca(request.getParameter("marca1"));
+                    beanPrenda.setColor(request.getParameter("color1"));
+                    beanPrenda.setTalla(request.getParameter("talla1"));
+                    beanPrenda.setDescuento(Double.parseDouble(request.getParameter("desc1")));
+                    beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo1")));
+                    beanPrenda.setStock(Integer.parseInt(request.getParameter("stock1")));
+                    daoPrenda.update(beanPrenda);
+                }catch (Exception exception){
+                    System.out.println("Error");
                 }
                 break;
-
             case "delete":
                 if(new DaoPrenda().delete(Integer.parseInt(request.getParameter("id")))){
                     map.put("mesage","Se ha eliminado correctamente");
