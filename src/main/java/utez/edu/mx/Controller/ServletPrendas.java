@@ -54,16 +54,19 @@ public class ServletPrendas extends HttpServlet {
                 break;
             case "update":
                 try {
-                    beanPrenda.setId(Integer.parseInt(request.getParameter("id1")));
-                    beanPrenda.setNombre(request.getParameter("nombre1"));
-                    beanPrenda.setMarca(request.getParameter("marca1"));
-                    beanPrenda.setColor(request.getParameter("color1"));
-                    beanPrenda.setTalla(request.getParameter("talla1"));
-                    beanPrenda.setDescuento(Double.parseDouble(request.getParameter("desc1")));
-                    beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo1")));
-                    beanPrenda.setStock(Integer.parseInt(request.getParameter("stock1")));
-                    beanPrenda.setStatus(Boolean.parseBoolean(request.getParameter("status")));
-                    boolean flag1=daoPrenda.update(beanPrenda);
+                    boolean flag1=false;
+                    int id1= Integer.parseInt(request.getParameter("id1"));
+                    String nombre1 =request.getParameter("nombre1");
+                    String marca1= request.getParameter("marca1");
+                    String color1=request.getParameter("color1");
+                    String talla1=request.getParameter("talla1");
+                    Double desc1= Double.parseDouble(request.getParameter("desc1"));
+                    Double costo1=Double.parseDouble(request.getParameter("costo1"));
+                    int stock1=Integer.parseInt(request.getParameter("stock1"));
+                    Boolean status1=Boolean.parseBoolean(request.getParameter("status1"));
+                    beanPrenda=new BeanPrenda(id1,nombre1,marca1,color1,talla1,desc1,costo1,stock1,status1);
+                    flag1=daoPrenda.update(beanPrenda);
+                    //flag1=true;
                     if (flag1){
                         map.put("message","Se actualizo correctamente");
                     }else{

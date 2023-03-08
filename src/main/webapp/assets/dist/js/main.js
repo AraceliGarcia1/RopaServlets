@@ -155,6 +155,20 @@ const updateS=()=>{
     data.append("status1",document.getElementById("status1").value);
     data.append("action","update");
 
+
+    console.log("Valores del formulario:", {
+        id1: document.getElementById("id1").value,
+        nombre1: document.getElementById("nombre1").value,
+        marca1: document.getElementById("marca1").value,
+        talla1: document.getElementById("talla1").value,
+        color1: document.getElementById("color1").value,
+        desc1: document.getElementById("desc1").value,
+        costo1: document.getElementById("costo1").value,
+        stock1: document.getElementById("stock1").value,
+        status1: document.getElementById("status1").value,
+    });
+
+
     $.ajax({
         type:"POST",
         url: contextPath + "/updatePrendas",
