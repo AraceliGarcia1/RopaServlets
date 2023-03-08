@@ -26,19 +26,18 @@
                     <h4 class="text-center">Inicio de sesión</h4>
                 </div>
                 <div class="card-body">
-                    <form>
+
                         <div class="form-group">
-                            <label for="email">Correo electrónico:</label>
-                            <input type="email" class="form-control" id="email">
+                            <label>Correo electrónico:</label>
+                            <input type="text" class="form-control" id="usuario" name="usuario">
                         </div>
                         <div class="form-group">
-                            <label for="pwd">Contraseña:</label>
-                            <input type="password" class="form-control" id="pwd">
+                            <label >Contraseña:</label>
+                            <input type="password" class="form-control" id="contrasena" name="contrasena">
                         </div>
                         <div style="margin-top: 10px" align="center">
-                        <a href="${context}/views/ropa.jsp" class="btn btn-primary btn-block">Iniciar Sesión</a>
+                        <button onclick="iniciarSesion()" class="btn btn-primary btn-block">Iniciar Sesión</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

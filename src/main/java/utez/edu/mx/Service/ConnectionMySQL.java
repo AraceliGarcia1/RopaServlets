@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConnectionMySQL {
     public static Connection getConnection() throws SQLException {
         String host = "localhost";
-        String port = "3306";
+        String port = "3307";
         String database = "ropa";
         String useSSL = "false";
         String timezone = "UTC";

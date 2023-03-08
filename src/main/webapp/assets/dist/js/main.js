@@ -107,6 +107,8 @@ const registrar=()=>{
 
 };
 
+
+
 const updateP=(id)=>{
     console.log("idPrenda")
     const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
@@ -142,7 +144,6 @@ const updateP=(id)=>{
 
 const updateS=()=>{
     const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-    console.log("me has presionado")
     var data=new FormData()
     data.append("id1",document.getElementById("id1").value);
     data.append("nombre1",document.getElementById("nombre1").value);
@@ -184,11 +185,28 @@ const updateS=()=>{
 
 };
 
+const iniciarSesion=()=>{
+    const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+    let data=new FormData()
+    data.append("usuario",document.getElementById("usuario").value);
+    data.append("contrasena",document.getElementById("contrasena").value);
+    data.append("action","login");
 
+    $.ajax({
+        type:"POST",
+        url: contextPath + "/login",
+        data:data,
+        processData:false,
+        contentType:false
+    }).done(function (res){
+        if(res.message === "Ok"){
+            window.location.href = contextPath + "/views/ropa.jsp";
+        }else {
+            alert(res.message)
+        }
+    });
 
-
-
-
+};
 
 
 

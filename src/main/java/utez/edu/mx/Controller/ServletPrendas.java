@@ -24,6 +24,7 @@ public class ServletPrendas extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         request.setCharacterEncoding("UTF-8");
         String action= request.getParameter("action");
         BeanPrenda beanPrenda=new BeanPrenda();
@@ -44,7 +45,7 @@ public class ServletPrendas extends HttpServlet {
                 beanPrenda.setDescuento(Double.parseDouble(request.getParameter("descuento")));
                 beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo")));
                 beanPrenda.setStock(Integer.parseInt(request.getParameter("stock")));
-                boolean flag=daoPrenda.create(beanPrenda);
+                boolean flag=daoPrenda.create(beanPrenda, session);
                 if(flag){
                     map.put("message","Se registro correctamente");
                 }else{
@@ -64,8 +65,8 @@ public class ServletPrendas extends HttpServlet {
                     Double costo1=Double.parseDouble(request.getParameter("costo1"));
                     int stock1=Integer.parseInt(request.getParameter("stock1"));
                     Boolean status1=Boolean.parseBoolean(request.getParameter("status1"));
-                    beanPrenda=new BeanPrenda(id1,nombre1,marca1,color1,talla1,desc1,costo1,stock1,status1);
-                    flag1=daoPrenda.update(beanPrenda);
+                    beanPrenda=new BeanPrenda(id1,nombre1,marca1,talla1,color1,desc1,costo1,stock1,status1);
+                    flag1=daoPrenda.update(beanPrenda, session);
                     //flag1=true;
                     if (flag1){
                         map.put("message","Se actualizo correctamente");
@@ -77,7 +78,7 @@ public class ServletPrendas extends HttpServlet {
                 }
                 break;
             case "delete":
-                if(new DaoPrenda().delete(Integer.parseInt(request.getParameter("id")))){
+                if(new DaoPrenda().delete(Integer.parseInt(request.getParameter("id")), session)){
                     map.put("mesage","Se ha eliminado correctamente");
                     write(response, map);
                 }else{

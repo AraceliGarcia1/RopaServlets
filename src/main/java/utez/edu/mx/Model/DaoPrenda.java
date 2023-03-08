@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpSession;
+
 public class DaoPrenda {
     private Connection con;
     private CallableStatement cstm;
@@ -18,11 +20,12 @@ public class DaoPrenda {
         List<BeanPrenda> listPrendas = new ArrayList<>();
         try{
             con= ConnectionMySQL.getConnection() ;
-            pstm= con.prepareStatement("SELECT * FROM ropa ");
-            rs= pstm.executeQuery();
+            pstm = con.prepareStatement("SELECT * FROM ropa ");
+            rs = pstm.executeQuery();
             while(rs.next()){
                 BeanPrenda beanPrenda = new BeanPrenda();
-
+                System.out.println("a");
+                System.out.println(rs.getInt("id"));
                 beanPrenda.setId(rs.getInt("id"));
                 beanPrenda.setNombre(rs.getString("nombre"));
                 beanPrenda.setMarca(rs.getString("marca"));
@@ -31,7 +34,7 @@ public class DaoPrenda {
                 beanPrenda.setDescuento(rs.getDouble("descuento"));
                 beanPrenda.setCosto(rs.getDouble("costo"));
                 beanPrenda.setStock(rs.getInt("stock"));
-                beanPrenda.setStatus(rs.getBoolean("status"));
+                beanPrenda.setStatus(rs.getBoolean("estado"));
 
                 listPrendas.add(beanPrenda);
             }
@@ -41,8 +44,9 @@ public class DaoPrenda {
 
         }finally {
             ConnectionMySQL.closeConnections(con, pstm, rs);
+            return listPrendas;
         }
-        return listPrendas;
+
     }
 
     public BeanPrenda findById (int id){
@@ -76,11 +80,12 @@ public class DaoPrenda {
         return beanPrenda;
     }
 
-    public boolean create(BeanPrenda prenda){
+    public boolean create(BeanPrenda prenda, HttpSession session){
         boolean flag = false;
         try{
+            int userId = (int) session.getAttribute("id_usuario");
             con = ConnectionMySQL.getConnection();
-            pstm= con.prepareStatement("INSERT INTO ropa (nombre,marca,talla, color,descuento,costo,stock) VALUES(?,?,?,?,?,?,?)");
+            pstm= con.prepareStatement("INSERT INTO ropa (nombre,marca,talla, color,descuento,costo,stock, ultima_modificacion_por) VALUES(?,?,?,?,?,?,?, ?)");
             pstm.setString(1, prenda.getNombre());
             pstm.setString(2,prenda.getMarca());
             pstm.setString(3,prenda.getTalla());
@@ -88,6 +93,7 @@ public class DaoPrenda {
             pstm.setDouble(5, prenda.getDescuento());
             pstm.setDouble(6,prenda.getCosto());
             pstm.setInt(7, prenda.getStock());
+            pstm.setInt(8, userId);
             flag = pstm.executeUpdate()==1;
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
@@ -97,11 +103,12 @@ public class DaoPrenda {
         return flag;
     }
 
-    public boolean update(BeanPrenda prenda){
+    public boolean update(BeanPrenda prenda, HttpSession session){
         boolean flag1 = false;
         try{
+            int userId = (int) session.getAttribute("id_usuario");
             con = ConnectionMySQL.getConnection();
-            pstm= con.prepareStatement("UPDATE ropa SET nombre = ?, marca = ?,talla = ?,color = ?,descuento = ?,costo = ?,stock = ?,status=?" + "WHERE id=?");
+            pstm= con.prepareStatement("UPDATE ropa SET nombre = ?, marca = ?,talla = ?, color = ? ,descuento = ?,costo = ?,stock = ?,estado=?, set ultima_modificacion_por = ?" + " WHERE id=?");
             pstm.setString(1, prenda.getNombre());
             pstm.setString(2,prenda.getMarca());
             pstm.setString(3,prenda.getTalla());
@@ -110,7 +117,8 @@ public class DaoPrenda {
             pstm.setDouble(6,prenda.getCosto());
             pstm.setInt(7,prenda.getStock());
             pstm.setBoolean(8,prenda.isStatus());
-            pstm.setInt(9,prenda.getId());
+            pstm.setInt(9,userId);
+            pstm.setInt(10,prenda.getId());
             flag1=pstm.executeUpdate()==1;
 
         }catch(SQLException e){
@@ -121,12 +129,15 @@ public class DaoPrenda {
         return flag1;
     }
 
-    public boolean delete(int id){
+    public boolean delete(int id, HttpSession session){
         boolean flag = false;
         try{
+            int userId = (int) session.getAttribute("id_usuario");
             con = ConnectionMySQL.getConnection();
-            pstm = con.prepareStatement("UPDATE ropa SET status=FALSE WHERE id=?");
-            pstm.setInt(1, id);
+            pstm = con.prepareStatement("UPDATE ropa SET estado = false, ultima_modificacion_por = ? WHERE id=?");
+            pstm.setInt(1, userId);
+            pstm.setInt(2, id);
+
             flag = pstm.executeUpdate()==1;
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
