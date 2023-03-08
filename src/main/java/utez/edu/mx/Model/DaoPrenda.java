@@ -98,10 +98,10 @@ public class DaoPrenda {
     }
 
     public boolean update(BeanPrenda prenda){
-        boolean flag = false;
+        boolean flag1 = false;
         try{
             con = ConnectionMySQL.getConnection();
-            pstm= con.prepareStatement("UPDATE ropa SET nombre=?, marca=?,talla=?,color=?,descuento=?,costo=?,stock=? WHERE id=?");
+            pstm= con.prepareStatement("UPDATE ropa SET nombre = ?, marca = ?,talla = ?,color = ?,descuento = ?,costo = ?,stock = ?,status=?" + "WHERE id=?");
             pstm.setString(1, prenda.getNombre());
             pstm.setString(2,prenda.getMarca());
             pstm.setString(3,prenda.getTalla());
@@ -109,17 +109,16 @@ public class DaoPrenda {
             pstm.setDouble(5,prenda.getDescuento());
             pstm.setDouble(6,prenda.getCosto());
             pstm.setInt(7,prenda.getStock());
-            pstm.setInt(8,prenda.getId());
-            if (pstm.executeUpdate()==1) {
-                flag =true;
-            }
+            pstm.setBoolean(8,prenda.isStatus());
+            pstm.setInt(9,prenda.getId());
+            flag1=pstm.executeUpdate()==1;
 
         }catch(SQLException e){
             CONSOLE.error("Ha ocurrido un error: " + e.getMessage());
         }finally{
             ConnectionMySQL.closeConnections(con, pstm);
         }
-        return flag;
+        return flag1;
     }
 
     public boolean delete(int id){

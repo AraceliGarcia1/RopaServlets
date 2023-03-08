@@ -3,6 +3,13 @@ const fill = (listPrendas) => {
     let table = "";
     if (listPrendas.length > 0) {
         for (let i = 0; i < listPrendas.length; i++) {
+            let buttons = "";
+            if (listPrendas[i].status) {
+                buttons = `
+        <button class="btn btn-warning delete-button" style="margin-right:10px ;" data-bs-toggle="modal" data-bs-target="#formModal" id="modificar"  onclick="updateP(${listPrendas[i].id})" >Modificar</button>
+        <button class="btn btn-danger edit-button"  style="margin-left: 10px;"  onclick="deleteP(${listPrendas[i].id})" id="eliminar">Eliminar</button>
+      `;
+            }
             table += `
         <tr>
          <td>${listPrendas[i].id}</td>
@@ -15,8 +22,7 @@ const fill = (listPrendas) => {
           <td>${listPrendas[i].stock}</td>
           <td>${listPrendas[i].status ? "Activo" : "Inactivo"}</td>
           <td>
-              <button class="btn btn-warning delete-button" style="margin-right:10px ;" data-bs-toggle="modal" data-bs-target="#formModal" id="modificar"  onclick="updateP(${listPrendas[i].id})" >Modificar</button>
-           <button class="btn btn-danger edit-button"  style="margin-left: 10px;"  onclick="deleteP(${listPrendas[i].id})" id="eliminar">Eliminar</button>
+           ${buttons}
           </td>
         </tr>
       `;
@@ -126,7 +132,7 @@ const updateP=(id)=>{
         $('#desc1').val(prenda.descuento);
         $('#costo1').val(prenda.costo);
         $('#stock1').val(prenda.stock);
-        $('#status').val(prenda.status);
+        $('#status1').val(prenda.status);
         }else{
             console.log(`No se encontró ninguna prenda con el ID ${id}.`)
         }
@@ -138,25 +144,24 @@ const updateS=()=>{
     const contextPath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
     console.log("me has presionado")
     var data=new FormData()
-    data.append("id",document.getElementById("id1").value);
-    data.append("nombre",document.getElementById("nombre1").value);
-    data.append("marca",document.getElementById("marca1").value);
-    data.append("talla",document.getElementById("talla1").value);
-    data.append("color",document.getElementById("color1").value);
-    data.append("descuento",document.getElementById("desc1").value);
-    data.append("costo",document.getElementById("costo1").value);
-    data.append("stock",document.getElementById("stock1").value);
+    data.append("id1",document.getElementById("id1").value);
+    data.append("nombre1",document.getElementById("nombre1").value);
+    data.append("marca1",document.getElementById("marca1").value);
+    data.append("talla1",document.getElementById("talla1").value);
+    data.append("color1",document.getElementById("color1").value);
+    data.append("desc1",document.getElementById("desc1").value);
+    data.append("costo1",document.getElementById("costo1").value);
+    data.append("stock1",document.getElementById("stock1").value);
+    data.append("status1",document.getElementById("status1").value);
     data.append("action","update");
 
     $.ajax({
         type:"POST",
         url: contextPath + "/updatePrendas",
         data:data,
-        'action':'update',
         processData:false,
         contentType:false
     }).done(function (res){
-
         $(`#formModal`).hide();
         fill(res.listPrendas);
         location.reload();

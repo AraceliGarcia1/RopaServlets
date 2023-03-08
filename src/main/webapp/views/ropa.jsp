@@ -83,6 +83,8 @@
                     <br>
                     <label>Stock</label>
                     <input type="number" id="stock1" name="stock1" style="margin-bottom:10px;">
+                    <input type="hidden" id="status1" name="status1" style="margin-bottom:10px">
+                    <br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

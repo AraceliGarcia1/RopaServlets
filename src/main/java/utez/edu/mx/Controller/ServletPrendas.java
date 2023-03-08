@@ -62,7 +62,13 @@ public class ServletPrendas extends HttpServlet {
                     beanPrenda.setDescuento(Double.parseDouble(request.getParameter("desc1")));
                     beanPrenda.setCosto(Double.parseDouble(request.getParameter("costo1")));
                     beanPrenda.setStock(Integer.parseInt(request.getParameter("stock1")));
-                    daoPrenda.update(beanPrenda);
+                    beanPrenda.setStatus(Boolean.parseBoolean(request.getParameter("status")));
+                    boolean flag1=daoPrenda.update(beanPrenda);
+                    if (flag1){
+                        map.put("message","Se actualizo correctamente");
+                    }else{
+                        map.put("message","No se actualizo correctamente");
+                    }
                 }catch (Exception exception){
                     System.out.println("Error");
                 }
